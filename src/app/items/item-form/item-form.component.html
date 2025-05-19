@@ -1,0 +1,27 @@
+<div class="container">
+  <h2>{{ isEdit ? 'Anyag módosítása' : 'Új anyag rögzítése' }}</h2>
+  <form (ngSubmit)="save()">
+    <label>Típus:</label>
+    <select [(ngModel)]="item.type" name="type" required>
+      <option value="könyv">Könyv</option>
+      <option value="cd">CD</option>
+      <option value="kazetta">Kazetta</option>
+      <option value="kotta">Kotta</option>
+    </select>
+
+    <label>Szerző:</label>
+    <input [(ngModel)]="item.author" name="author" required />
+
+    <label>Cím:</label>
+    <input [(ngModel)]="item.title" name="title" required />
+
+    <label>Beszerzés dátuma:</label>
+    <input [(ngModel)]="item.acquisitionDate" name="acquisitionDate" type="date" required />
+
+    <label>Sorszám:</label>
+    <input [(ngModel)]="item.serialNumber" name="serialNumber" required />
+
+    <button type="submit">Mentés</button>
+    <button type="button" routerLink="/items">Mégse</button>
+  </form>
+</div>

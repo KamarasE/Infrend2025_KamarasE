@@ -1,0 +1,19 @@
+<div class="container">
+  <h2>{{ isEdit ? 'Tag módosítása' : 'Új tag felvétele' }}</h2>
+  <form (ngSubmit)="save()">
+    <label>Név:</label>
+    <input [(ngModel)]="member.name" name="name" required />
+
+    <label>Telefonszám:</label>
+    <input [(ngModel)]="member.phone" name="phone" required />
+
+    <label>Személyigazolvány szám:</label>
+    <input [(ngModel)]="member.idCardNumber" name="idCardNumber" required />
+
+    <label>Lakcím:</label>
+    <input [(ngModel)]="member.address" name="address" required />
+
+    <button type="submit">Mentés</button>
+    <button routerLink="/members" type="button">Mégse</button>
+  </form>
+</div>

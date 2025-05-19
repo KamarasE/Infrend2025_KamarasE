@@ -1,15 +1,13 @@
 import { Routes } from '@angular/router';
-
 import { MembersListComponent } from './members/members-list/members-list.component';
 import { MemberFormComponent } from './members/member-form/member-form.component';
 import { ItemsListComponent } from './items/items-list/items-list.component';
 import { ItemFormComponent } from './items/item-form/item-form.component';
 import { LoanFormComponent } from './loans/loan-form/loan-form.component';
 import { LoanListComponent } from './loans/loan-list/loan-list.component';
-import { ReturnFormComponent } from './loans/return-form/return-form.component';
-import { LateLoansComponent } from './loans/late-loans/late-loans.component';
+import { OverdueListComponent } from './loans/overdue-list/overdue-list.component';
 
-export const routes: Routes = [
+const routes: Routes = [
   { path: 'members', component: MembersListComponent },
   { path: 'members/new', component: MemberFormComponent },
   { path: 'members/edit/:id', component: MemberFormComponent },
@@ -18,10 +16,9 @@ export const routes: Routes = [
   { path: 'items/new', component: ItemFormComponent },
   { path: 'items/edit/:id', component: ItemFormComponent },
 
-  { path: 'loans', component: LoanListComponent },
   { path: 'loans/new', component: LoanFormComponent },
-  { path: 'returns', component: ReturnFormComponent },
-  { path: 'late-loans', component: LateLoansComponent },
+  //{ path: 'returns', component: ReturnFormComponent },
+  //{ path: 'late-loans', component: LateLoansComponent },
 
-  { path: '', redirectTo: '/members', pathMatch: 'full' }
+  { path: '', redirectTo: '/members', pathMatch: 'full' },
 ];

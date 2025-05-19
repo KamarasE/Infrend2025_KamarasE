@@ -1,0 +1,30 @@
+<div class="container">
+  <h2>Tagok listája</h2>
+  <input type="text" [(ngModel)]="searchTerm" placeholder="Keresés név, ID alapján" />
+  <button (click)="loadMembers()">Keresés</button>
+  <a routerLink="/members/new">➕ Új tag</a>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Név</th>
+        <th>Telefonszám</th>
+        <th>Szem. sz.</th>
+        <th>Lakcím</th>
+        <th>Művelet</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let m of members">
+        <td>{{ m.name }}</td>
+        <td>{{ m.phone }}</td>
+        <td>{{ m.idCardNumber }}</td>
+        <td>{{ m.address }}</td>
+        <td>
+        <a *ngIf="m.id !== undefined" [routerLink]="['/members/edit', m.id!]">✏️</a>
+        <button *ngIf="m.id !== undefined" (click)="deactivateMember(m.id!)">🗑️</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
