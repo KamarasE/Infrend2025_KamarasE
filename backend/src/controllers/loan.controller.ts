@@ -26,48 +26,49 @@ export class LoanController {
   };
 
   createLoan = async (req: Request, res: Response) => {
-    try {
-      const { memberId, inventoryNumber } = req.body;
+  try {
+    const { memberId, itemId } = req.body;
 
-      if (!isValidMemberId(memberId) || !isValidItemId(inventoryNumber)) {
-        return res.status(400).json({ message: 'Érvénytelen tag vagy tétel azonosító.' });
-      }
-
-      const member = await this.memberTable.findOneBy({ id: memberId });
-      const item = await this.itemTable.findOneBy({ inventoryNumber });
-
-      if (!member || !item) {
-        return res.status(404).json({ message: 'Nem található tag vagy tétel.' });
-      }
-
-      if (item.status !== 'available') {
-        return res.status(400).json({ message: 'A tétel nem elérhető.' });
-      }
-
-      const activeLoans = await this.loanTable.count({
-        where: { member: { id: memberId }, returnDate: null }
-      });
-
-      if (activeLoans >= 6) {
-        return res.status(400).json({ message: 'A tag elérte a kölcsönzési limitet.' });
-      }
-
-      const newLoan = this.loanTable.create({
-        member,
-        item,
-        loanDate: new Date(),
-        returnDate: null
-      });
-
-      item.status = 'loaned';
-      await this.itemTable.save(item);
-      await this.loanTable.save(newLoan);
-
-      res.json({ message: 'Kölcsönzés létrehozva.', loan: newLoan });
-    } catch (err) {
-      this.handleError(res, err);
+    if (!isValidMemberId(memberId) || !isValidItemId(itemId)) {
+      return res.status(400).json({ message: 'Érvénytelen tag vagy tétel azonosító.' });
     }
-  };
+
+    const member = await this.memberTable.findOneBy({ id: memberId });
+    const item = await this.itemTable.findOneBy({ id: itemId });
+
+    if (!member || !item) {
+      return res.status(404).json({ message: 'Nem található tag vagy tétel.' });
+    }
+
+    if (item.status !== 'available') {
+      return res.status(400).json({ message: 'A tétel nem elérhető.' });
+    }
+
+    const activeLoans = await this.loanTable.count({
+      where: { member: { id: memberId }, returnDate: null }
+    });
+
+    if (activeLoans >= 6) {
+      return res.status(400).json({ message: 'A tag elérte a kölcsönzési limitet.' });
+    }
+
+    const newLoan = this.loanTable.create({
+      member,
+      item,
+      loanDate: new Date(),
+      returnDate: null
+    });
+
+    item.status = 'loaned';
+    await this.itemTable.save(item);
+    await this.loanTable.save(newLoan);
+
+    res.json({ message: 'Kölcsönzés létrehozva.', loan: newLoan });
+  } catch (err) {
+    this.handleError(res, err);
+  }
+};
+
 
   returnLoan = async (req: Request, res: Response) => {
     try {

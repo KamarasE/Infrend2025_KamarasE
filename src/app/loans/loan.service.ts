@@ -13,9 +13,10 @@ export class LoanService {
     return this.http.get<Loan[]>(this.apiUrl);
   }
 
-  addLoan(loan: Loan): Observable<Loan> {
-    return this.http.post<Loan>(this.apiUrl, loan);
-  }
+  addLoan(data: { memberId: number; itemId: number }): Observable<Loan> {
+  return this.http.post<Loan>(this.apiUrl, data);
+}
+
 
   returnLoan(id: number): Observable<void> {
     return this.http.patch<void>(`${this.apiUrl}/${id}/return`, {});

@@ -14,7 +14,7 @@ export class LoanFormComponent implements OnInit {
   loan: Loan = {
     memberId: 0,
     itemId: 0,
-    borrowDate: new Date(),
+    loanDate: new Date(),
     isReturned: false
   };
 
@@ -23,8 +23,19 @@ export class LoanFormComponent implements OnInit {
   ngOnInit(): void {}
 
   save(): void {
-    this.loanService.addLoan(this.loan).subscribe(() => {
-      this.router.navigate(['/loans']);
-    });
-  }
+    console.log(this.loan);
+  const payload = {
+    memberId: Number(this.loan.memberId),
+    itemId: Number(this.loan.itemId)
+  };
+
+  console.log('Küldésre előkészített adat:', payload);
+
+  this.loanService.addLoan(payload).subscribe({
+    next: () => this.router.navigate(['/loans']),
+    error: err => console.error('HIBA válaszként:', err)
+  });
+}
+
+
 }

@@ -7,9 +7,9 @@ const itemRouter = Router();
 const itemController = new ItemController(AppDataSource);
 
 itemRouter.get('/', itemController.getAllItems);
-itemRouter.get('/:sorszam', itemController.getItem);
+itemRouter.get('/:id', itemController.getItem);
 itemRouter.post('/', itemController.createItem);
-itemRouter.put('/:sorszam', itemController.updateItem);
-itemRouter.delete('/:sorszam', itemController.deleteItem);
+itemRouter.put('/:id', itemController.updateItem);
+itemRouter.delete('/:id', itemController.deleteItem);
 
 export default itemRouter;

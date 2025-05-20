@@ -2,7 +2,7 @@ export interface Loan {
   id?: number;
   memberId: number;
   itemId: number;
-  borrowDate: Date;
+  loanDate?: Date;
   returnDate?: Date;
-  isReturned: boolean;
+  isReturned?: boolean;
 }

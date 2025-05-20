@@ -23,12 +23,12 @@ export class ItemController {
 
   getItem = async (req: Request, res: Response) => {
     try {
-      const inventoryNumber = req.params['inventoryNumber'];
-      if (!isValidInventoryNumber(inventoryNumber)) {
-        return res.status(400).json({ message: 'Érvénytelen leltári szám.' });
+      const id = Number(req.params['id']);
+      if (!Number.isInteger(id)) {
+        return res.status(400).json({ message: 'Érvénytelen ID.' });
       }
 
-      const item = await this.itemTable.findOneBy({ inventoryNumber });
+      const item = await this.itemTable.findOneBy({ id });
       if (!item) {
         return res.status(404).json({ message: 'Nincs ilyen tétel.' });
       }
@@ -69,8 +69,8 @@ export class ItemController {
 
   updateItem = async (req: Request, res: Response) => {
     try {
-      const inventoryNumber = req.params['inventoryNumber'];
-      const item = await this.itemTable.findOneBy({ inventoryNumber });
+      const id = Number(req.params['id']);
+      const item = await this.itemTable.findOneBy({ id });
 
       if (!item) {
         return res.status(404).json({ message: 'Nincs ilyen tétel.' });
@@ -93,8 +93,8 @@ export class ItemController {
 
   deleteItem = async (req: Request, res: Response) => {
     try {
-      const inventoryNumber = req.params['inventoryNumber'];
-      const item = await this.itemTable.findOneBy({ inventoryNumber });
+      const id = Number(req.params['id']);
+      const item = await this.itemTable.findOneBy({ id });
 
       if (!item) {
         return res.status(404).json({ message: 'Nincs ilyen tétel.' });

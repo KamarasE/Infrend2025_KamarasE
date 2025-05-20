@@ -7,7 +7,7 @@ export function isValidTitle(title: string): boolean {
 }
 
 export function isValidType(type: string): boolean {
-  return ['book', 'cd', 'kazetta', 'kotta'].includes(type.toLowerCase());
+  return ['book', 'cd', 'kotta'].includes(type.toLowerCase());
 }
 
 export function isValidDate(date: string): boolean {

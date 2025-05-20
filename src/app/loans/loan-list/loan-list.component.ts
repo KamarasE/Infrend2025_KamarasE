@@ -3,6 +3,7 @@ import { LoanService } from '../loan.service';
 import { Loan } from '../loan-model';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -13,7 +14,10 @@ import { FormsModule } from '@angular/forms';
 export class LoanListComponent implements OnInit {
   loans: Loan[] = [];
 
-  constructor(private loanService: LoanService) {}
+  constructor(
+    private loanService: LoanService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loadLoans();
@@ -27,5 +31,9 @@ export class LoanListComponent implements OnInit {
     if (confirm('Biztosan visszahozta az anyagot?')) {
       this.loanService.returnLoan(loanId).subscribe(() => this.loadLoans());
     }
+  }
+
+  navigateToNewLoan(): void {
+    this.router.navigate(['/loans/new']);
   }
 }

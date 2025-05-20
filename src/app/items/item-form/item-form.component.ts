@@ -12,12 +12,12 @@ import { FormsModule } from '@angular/forms';
 })
 export class ItemFormComponent implements OnInit {
   item: Item = {
-    type: 'könyv',
+    type: 'book',
     author: '',
     title: '',
     acquisitionDate: new Date(),
-    serialNumber: '',
-    status: 'szabad'
+    inventoryNumber: '',
+    status: 'available'
   };
 
   isEdit = false;
@@ -40,6 +40,7 @@ export class ItemFormComponent implements OnInit {
     const req = this.isEdit
       ? this.itemService.updateItem(this.item)
       : this.itemService.addItem(this.item);
+      console.log(this.item);
 
     req.subscribe(() => this.router.navigate(['/items']));
   }

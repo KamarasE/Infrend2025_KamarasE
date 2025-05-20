@@ -1,9 +1,9 @@
 export interface Item {
   id?: number;
-  type: 'könyv' | 'cd' | 'kazetta' | 'kotta';
+  type: 'book' | 'cd' | 'kotta';
   author: string;
   title: string;
   acquisitionDate: Date;
-  serialNumber: string;
-  status: 'szabad' | 'kikölcsönzött' | 'selejtezett';
+  inventoryNumber: string;
+  status: 'available' | 'loaned' | 'discarded';
 }

@@ -1,6 +1,6 @@
 <div class="container">
   <h2>Aktív kölcsönzések</h2>
-  <a routerLink="/loans/new">➕ Új kölcsönzés</a>
+  <button (click)="navigateToNewLoan()">➕ Új kölcsönzés</button>
 
   <table>
     <thead>
@@ -16,7 +16,7 @@
       <tr *ngFor="let l of loans">
         <td>{{ l.memberId }}</td>
         <td>{{ l.itemId }}</td>
-        <td>{{ l.borrowDate | date }}</td>
+        <td>{{ l.loanDate | date }}</td>
         <td>{{ l.isReturned ? 'Visszahozva' : 'Kikölcsönözve' }}</td>
         <td *ngIf="!l.isReturned">
           <button (click)="returnItem(l.id!)">✅ Visszavétel</button>

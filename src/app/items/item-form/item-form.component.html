@@ -3,9 +3,8 @@
   <form (ngSubmit)="save()">
     <label>Típus:</label>
     <select [(ngModel)]="item.type" name="type" required>
-      <option value="könyv">Könyv</option>
+      <option value="book">Könyv</option>
       <option value="cd">CD</option>
-      <option value="kazetta">Kazetta</option>
       <option value="kotta">Kotta</option>
     </select>
 
@@ -19,7 +18,7 @@
     <input [(ngModel)]="item.acquisitionDate" name="acquisitionDate" type="date" required />
 
     <label>Sorszám:</label>
-    <input [(ngModel)]="item.serialNumber" name="serialNumber" required />
+    <input [(ngModel)]="item.inventoryNumber" name="serialNumber" required />
 
     <button type="submit">Mentés</button>
     <button type="button" routerLink="/items">Mégse</button>

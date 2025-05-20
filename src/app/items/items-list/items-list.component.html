@@ -23,7 +23,7 @@
         <td>{{ item.author }}</td>
         <td>{{ item.title }}</td>
         <td>{{ item.acquisitionDate | date:'yyyy-MM-dd' }}</td>
-        <td>{{ item.serialNumber }}</td>
+        <td>{{ item.inventoryNumber }}</td>
         <td>{{ item.status }}</td>
         <td>
           <a *ngIf="item.id !== undefined" [routerLink]="['/items/edit', item.id]">✏️</a>
