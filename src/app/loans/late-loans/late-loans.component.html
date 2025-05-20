@@ -12,8 +12,8 @@
   </thead>
   <tbody>
     <tr *ngFor="let loan of overdueLoans">
-      <td>{{ loan.memberId }}</td>
-      <td>{{ loan.itemId }}</td>
+      <td>{{ loan.member?.id }}</td>
+      <td>{{ loan.item?.id }}</td>
       <td>{{ loan.loanDate | date:'yyyy-MM-dd' }}</td>
       <td>{{ calculateDelay(loan.loanDate) }}</td>
     </tr>

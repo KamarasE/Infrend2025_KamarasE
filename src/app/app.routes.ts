@@ -8,7 +8,6 @@ import { ItemsListComponent } from './items/items-list/items-list.component';
 import { ItemFormComponent } from './items/item-form/item-form.component';
 import { LoanFormComponent } from './loans/loan-form/loan-form.component';
 import { LoanListComponent } from './loans/loan-list/loan-list.component';
-import { ReturnFormComponent } from './loans/return-form/return-form.component';
 import { LateLoansComponent } from './loans/late-loans/late-loans.component';
 
 export const routes: Routes = [
@@ -25,6 +24,5 @@ export const routes: Routes = [
 
   { path: 'loans', component: LoanListComponent },
   { path: 'loans/new', component: LoanFormComponent },
-  { path: 'returns', component: ReturnFormComponent },
   { path: 'late-loans', component: LateLoansComponent },
 ];

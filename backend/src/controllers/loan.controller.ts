@@ -80,9 +80,13 @@ export class LoanController {
       relations: ['item']
     });
 
-    if (!loan || loan.returnDate !== null) {
-      return res.status(404).json({ message: 'Nincs ilyen aktív kölcsönzés.' });
+   if (!loan) {
+    return res.status(404).json({ message: 'Nincs ilyen kölcsönzés.' });
+   }
+   if (loan.returnDate !== null) {
+    return res.status(400).json({ message: 'Ez a kölcsönzés már vissza lett hozva.' });
     }
+
 
     loan.returnDate = new Date();
     loan.item.status = 'available';

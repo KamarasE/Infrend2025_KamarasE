@@ -13,15 +13,16 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let l of loans">
-        <td>{{ l.memberId }}</td>
-        <td>{{ l.itemId }}</td>
-        <td>{{ l.loanDate | date }}</td>
-        <td>{{ l.isReturned ? 'Visszahozva' : 'Kikölcsönözve' }}</td>
-        <td *ngIf="!l.isReturned">
-          <button (click)="returnItem(l.id!)">✅ Visszavétel</button>
-        </td>
-      </tr>
-    </tbody>
+  <tr *ngFor="let l of loans">
+    <td>{{ l.member?.id }}</td>
+    <td>{{ l.item?.id }}</td>
+    <td>{{ l.loanDate | date }}</td>
+    <td>{{ l.returnDate ? 'Visszahozva' : 'Kikölcsönözve' }}</td>
+    <td *ngIf="!l.returnDate">
+      <button (click)="returnItem(l.id!)">✅ Visszavétel</button>
+    </td>
+  </tr>
+</tbody>
+
   </table>
 </div>

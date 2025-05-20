@@ -36,6 +36,9 @@ export class LoanFormComponent implements OnInit {
     error: err => console.error('HIBA válaszként:', err)
   });
 }
+cancel(): void {
+  this.router.navigate(['/loans']);
+}
 
 
 }

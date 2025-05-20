@@ -11,6 +11,7 @@
     <input [(ngModel)]="loan.loanDate" name="loanDate" type="date" required />
 
     <button type="submit">Mentés</button>
-    <button type="button" routerLink="/loans">Mégse</button>
+    <button type="button" (click)="cancel()">Mégse</button>
+
   </form>
 </div>
