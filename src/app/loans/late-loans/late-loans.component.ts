@@ -1,11 +1,30 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { Loan } from '../loan-model';
+import { LoanService } from '../loan.service';
+import { CommonModule, NgFor } from '@angular/common';
 
 @Component({
   standalone: true,
   selector: 'app-late-loans',
-  imports: [CommonModule],
   templateUrl: './late-loans.component.html',
-  styleUrls: ['./late-loans.component.css']
+  imports: [CommonModule, NgFor],
 })
-export class LateLoansComponent {}
+export class LateLoansComponent implements OnInit {
+  overdueLoans: Loan[] = [];
+
+  constructor(private loanService: LoanService) {}
+
+  ngOnInit(): void {
+    this.loanService.getOverdueLoans().subscribe(data => {
+      this.overdueLoans = data;
+    });
+  }
+
+  calculateDelay(date: Date): number {
+  const loanDate = new Date(date);
+  const now = new Date();
+  const diff = now.getTime() - loanDate.getTime();
+  return Math.floor(diff / (1000 * 60 * 60 * 24));
+}
+
+}

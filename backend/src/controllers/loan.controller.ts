@@ -4,6 +4,8 @@ import { Loan } from '../entity/Loan';
 import { Member } from '../entity/Member';
 import { Item } from '../entity/Item';
 import { isValidMemberId, isValidItemId } from '../validators/loanValidator';
+import { LessThan } from 'typeorm';
+
 
 export class LoanController {
   private loanTable: Repository<Loan>;
@@ -71,31 +73,55 @@ export class LoanController {
 
 
   returnLoan = async (req: Request, res: Response) => {
-    try {
-      const id = Number(req.params['id']);
-      const loan = await this.loanTable.findOne({
-        where: { id },
-        relations: ['item']
-      });
+  try {
+    const id = Number(req.params['id']);
+    const loan = await this.loanTable.findOne({
+      where: { id },
+      relations: ['item']
+    });
 
-      if (!loan || loan.returnDate !== null) {
-        return res.status(404).json({ message: 'Nincs ilyen aktív kölcsönzés.' });
-      }
-
-      loan.returnDate = new Date();
-      loan.item.status = 'available';
-
-      await this.itemTable.save(loan.item);
-      await this.loanTable.save(loan);
-
-      res.json({ message: 'Kölcsönzés lezárva.', loan });
-    } catch (err) {
-      this.handleError(res, err);
+    if (!loan || loan.returnDate !== null) {
+      return res.status(404).json({ message: 'Nincs ilyen aktív kölcsönzés.' });
     }
-  };
+
+    loan.returnDate = new Date();
+    loan.item.status = 'available';
+
+    await this.itemTable.save(loan.item);
+    await this.loanTable.save(loan);
+
+    res.json({ message: 'Kölcsönzés lezárva.', loan });
+  } catch (err) {
+    this.handleError(res, err);
+  }
+};
+
 
   private handleError(res: Response, err: any, status = 500, message = 'Szerverhiba.') {
     console.error(err);
     res.status(status).json({ message });
   }
+
+  getOverdueLoans = async (_req: Request, res: Response) => {
+  try {
+    const dateThreshold = new Date();
+    dateThreshold.setDate(dateThreshold.getDate() - 30);
+
+    const overdueLoans = await this.loanTable.find({
+      where: {
+        loanDate: LessThan(dateThreshold),
+        returnDate: null
+      },
+      relations: ['member', 'item'],
+      order: { loanDate: 'ASC' }
+    });
+
+    res.json(overdueLoans);
+  } catch (err) {
+    this.handleError(res, err);
+  }
+};
+
+
+
 }

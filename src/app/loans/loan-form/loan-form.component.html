@@ -2,10 +2,10 @@
   <h2>Új kölcsönzés</h2>
   <form (ngSubmit)="save()">
     <label>Tag azonosító:</label>
-    <input [(ngModel)]="loan.memberId" name="memberId" required />
+    <input [(ngModel)]="loan.memberId" name="memberId" type="number" required />
 
     <label>Anyag azonosító:</label>
-    <input [(ngModel)]="loan.itemId" name="itemId" required />
+    <input [(ngModel)]="loan.itemId" name="itemId" type="number" required />
 
     <label>Kölcsönzés dátuma:</label>
     <input [(ngModel)]="loan.loanDate" name="loanDate" type="date" required />

@@ -48,9 +48,9 @@ export class MainMenuComponent {
     this.router.navigate(['loans/new']);
   }
 
-  openReturns(){
+/*  openReturns(){
     this.router.navigate(['returns']);
-  }
+  }*/
 
   openLateLoans(){
     this.router.navigate(['late-loans']);

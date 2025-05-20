@@ -18,9 +18,11 @@ export class LoanService {
 }
 
 
-  returnLoan(id: number): Observable<void> {
-    return this.http.patch<void>(`${this.apiUrl}/${id}/return`, {});
-  }
+ returnLoan(id: number): Observable<void> {
+  return this.http.patch<void>(`http://localhost:3000/loans/${id}/return`, {});
+}
+
+
 
   getOverdueLoans(): Observable<Loan[]> {
     return this.http.get<Loan[]>(`${this.apiUrl}/overdue`);

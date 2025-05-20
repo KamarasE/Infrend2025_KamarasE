@@ -1,2 +1,23 @@
 <h2>Késedelmes kölcsönzések</h2>
-<p>Itt jelennek meg a 30 napnál régebben kikölcsönzött tételek és adatok.</p>
+<p>Itt jelennek meg a 30 napnál régebben kikölcsönzött tételek.</p>
+
+<table *ngIf="overdueLoans.length > 0">
+  <thead>
+    <tr>
+      <th>Tag ID</th>
+      <th>Anyag ID</th>
+      <th>Kölcsönzés dátuma</th>
+      <th>Késés (nap)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let loan of overdueLoans">
+      <td>{{ loan.memberId }}</td>
+      <td>{{ loan.itemId }}</td>
+      <td>{{ loan.loanDate | date:'yyyy-MM-dd' }}</td>
+      <td>{{ calculateDelay(loan.loanDate) }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="overdueLoans.length === 0">Nincs késedelmes kölcsönzés.</p>
