@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 
+import { WelcomeComponent } from './welcome/welcome.component';
+import { MainMenuComponent } from './main-menu/main-menu.component';
 import { MembersListComponent } from './members/members-list/members-list.component';
 import { MemberFormComponent } from './members/member-form/member-form.component';
 import { ItemsListComponent } from './items/items-list/items-list.component';
@@ -10,6 +12,9 @@ import { ReturnFormComponent } from './loans/return-form/return-form.component';
 import { LateLoansComponent } from './loans/late-loans/late-loans.component';
 
 export const routes: Routes = [
+  { path: '', component: WelcomeComponent },
+  { path: 'main-menu', component: MainMenuComponent },
+
   { path: 'members', component: MembersListComponent },
   { path: 'members/new', component: MemberFormComponent },
   { path: 'members/edit/:id', component: MemberFormComponent },
@@ -22,6 +27,4 @@ export const routes: Routes = [
   { path: 'loans/new', component: LoanFormComponent },
   { path: 'returns', component: ReturnFormComponent },
   { path: 'late-loans', component: LateLoansComponent },
-
-  { path: '', redirectTo: '/members', pathMatch: 'full' }
 ];

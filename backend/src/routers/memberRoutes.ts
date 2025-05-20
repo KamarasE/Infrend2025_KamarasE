@@ -6,7 +6,7 @@ import { AppDataSource } from '../data-source';
 const router = Router();
 const controller = new MemberController(AppDataSource);
 
-router.get('/', controller.getAllMembers);
+router.get('/', controller.getMemberByQuery);
 router.get('/:id', controller.getMember);
 router.post('/', controller.createMember);
 router.put('/:id', controller.updateMember);

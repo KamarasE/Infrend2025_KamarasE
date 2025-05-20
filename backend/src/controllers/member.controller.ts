@@ -11,15 +11,6 @@ export class MemberController {
     this.memberTable = dataSource.getRepository(Member);
   }
 
-  getAllMembers = async (req: Request, res: Response) => {
-    try {
-      const members = await this.memberTable.find({ order: { id: 'ASC' } });
-      res.json(members);
-    } catch (err) {
-      this.handleError(res, err);
-    }
-  };
-
   getMember = async (req: Request, res: Response) => {
     try {
       const id = Number(req.params['id']);
@@ -30,6 +21,37 @@ export class MemberController {
       this.handleError(res, err);
     }
   };
+
+  getMemberByQuery = async (req: Request, res: Response) => {
+  try {
+    const q = req.query.q?.toString().trim().toLowerCase();
+
+    if (!q) {
+      return res.status(400).json({ message: 'Keresési kifejezés szükséges (pl. név vagy ID).' });
+    }
+
+    const id = Number(q);
+    if (!isNaN(id)) {
+      const member = await this.memberTable.findOneBy({ id });
+      if (member) return res.json([member]);
+    }
+
+    const matches = await this.memberTable
+      .createQueryBuilder('member')
+      .where('LOWER(member.name) LIKE :name', { name: `%${q}%` })
+      .orderBy('member.id', 'ASC')
+      .getMany();
+
+    if (matches.length > 0) {
+      return res.json(matches);
+    }
+
+    return res.status(404).json({ message: 'Nem található egyező tag.' });
+  } catch (err) {
+    this.handleError(res, err);
+  }
+};
+
 
   createMember = async (req: Request, res: Response) => {
     try {

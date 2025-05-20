@@ -32,7 +32,7 @@ export class MemberFormComponent implements OnInit {
     const req = this.isEdit
       ? this.memberService.updateMember(this.member)
       : this.memberService.addMember(this.member);
-
+    console.log('Küldött adatok:', this.member);
     req.subscribe(() => this.router.navigate(['/members']));
   }
 }

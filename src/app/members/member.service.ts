@@ -7,13 +7,16 @@ import { Observable } from 'rxjs';
 export class MemberService {
   http = inject(HttpClient)
 
-  private apiUrl = 'http://localhost:3000/api/members';
+  private apiUrl = 'http://localhost:3000/members';
 
   //constructor(private http: HttpClient) {}
 
   getMembers(search: string = ''): Observable<Member[]> {
-    return this.http.get<Member[]>(`${this.apiUrl}?search=${search}`);
-  }
+  return this.http.get<Member[]>(this.apiUrl, {
+    params: { q: search }
+  });
+}
+
 
   getMember(id: number): Observable<Member> {
     return this.http.get<Member>(`${this.apiUrl}/${id}`);
